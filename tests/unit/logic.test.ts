@@ -5,6 +5,7 @@ import { siteUrl } from '../../src/shared/links';
 import { buildSections, matches, normalize } from '../../src/popup/sections';
 import { DEFAULT_MENU_STYLE_IDS, STYLES } from '../../src/engine/catalog';
 import { menuTitle } from '../../src/background/menus';
+import { isLegacyUpgrade, majorOf, shouldShowWelcome } from '../../src/background/lifecycle';
 
 describe('favorites & recent', () => {
   it('toggles favorites, newest first, capped', () => {
@@ -118,8 +119,7 @@ describe('popup sections & search', () => {
   });
 });
 
-describe('install / upgrade from 1.x', async () => {
-  const { majorOf, shouldShowWelcome, isLegacyUpgrade } = await import('../../src/background/lifecycle');
+describe('install / upgrade from 1.x', () => {
   it('parses major versions', () => {
     expect(majorOf('1.4.2')).toBe(1);
     expect(majorOf('2.0.0')).toBe(2);

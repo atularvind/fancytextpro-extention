@@ -74,7 +74,14 @@ export function enableLivePreview(): void {
     if (!info.menuIds.includes(ROOT_ID) || !info.selectionText) return;
     const g = graphemes(info.selectionText.replace(/\s+/g, ' ').trim());
     const sample = g.length > 24 ? `${g.slice(0, 24).join('')}…` : g.join('');
-    // Apply all title updates before refreshing the open menu.
-    void Promise.all(currentIds.map((id) => menus.update(`${STYLE_PREFIX}${id}`, { title: styleTitle(id, sample) }))).then(() => refresh());
+    // The event page may have restarted since the menu was built, so recompute the ids if needed.
+    void (async () => {
+      if (currentIds.length === 0) {
+        const { favorites, recent, settings } = await loadState();
+        currentIds = menuStyleIds(favorites, recent, settings.menuShowRecent);
+      }
+      await Promise.all(currentIds.map((id) => menus.update(`${STYLE_PREFIX}${id}`, { title: styleTitle(id, sample) })));
+      await refresh();
+    })().catch(() => undefined);
   });
 }

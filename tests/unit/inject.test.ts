@@ -100,6 +100,13 @@ describe('replaceSelection', () => {
   });
 });
 
+describe('replaceSelection no-op', () => {
+  it('treats an unchanged result as success instead of a failure', async () => {
+    field('textarea', 'plain text', 0, 5);
+    expect(await replaceSelection('plain', 'plain')).toEqual({ ok: true, method: 'execCommand' });
+  });
+});
+
 describe('copyText', () => {
   it('uses the async clipboard when the page has focus', async () => {
     const writeText = vi.fn(async () => undefined);

@@ -61,11 +61,18 @@ export async function saveFavorites(favorites: string[]): Promise<void> {
   await ext.storage.sync.set({ favorites });
 }
 
-export async function recordRecent(id: string): Promise<string[]> {
-  const { recent } = await ext.storage.local.get(['recent']);
-  const next = pushRecent(ids(recent), id);
-  await ext.storage.local.set({ recent: next });
-  return next;
+let recentQueue: Promise<unknown> = Promise.resolve();
+
+/** Serialised read-modify-write, so rapid uses in one context don't drop entries. */
+export function recordRecent(id: string): Promise<string[]> {
+  const run = recentQueue.then(async () => {
+    const { recent } = await ext.storage.local.get(['recent']);
+    const next = pushRecent(ids(recent), id);
+    await ext.storage.local.set({ recent: next });
+    return next;
+  });
+  recentQueue = run.catch(() => undefined);
+  return run;
 }
 
 export async function saveSettings(settings: Settings): Promise<void> {

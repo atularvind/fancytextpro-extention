@@ -54,6 +54,7 @@ export async function replaceSelection(out: string, expected: string | null): Pr
     const start = field.selectionStart ?? field.value.length;
     const end = field.selectionEnd ?? start;
     if (expected !== null && field.value.slice(start, end) !== expected) return { ok: false, method: 'stale' };
+    if (expected !== null && expected === out) return { ok: true, method: 'execCommand' };
     field.focus();
     field.setSelectionRange(start, end);
     let done = false;
@@ -77,15 +78,20 @@ export async function replaceSelection(out: string, expected: string | null): Pr
   while (host.parentElement && host.parentElement.isContentEditable) host = host.parentElement;
   if (expected !== null && sel.toString() !== expected) return { ok: false, method: 'stale' };
   const before = host.textContent ?? '';
+  // Nothing to change (e.g. "Remove styling" on plain text): that's a success, not a failure.
+  if (expected !== null && expected === out) return { ok: true, method: 'rich' };
   try {
     document.execCommand('insertText', false, out);
   } catch {
     /* verified below */
   }
-  // Rich editors (Lexical, ProseMirror, Draft.js, Slate) may update the DOM a tick later.
-  await new Promise((r) => setTimeout(r, 80));
-  const after = host.textContent ?? '';
-  const ok = after !== before && squash(after).includes(squash(out));
+  // Rich editors (Lexical, ProseMirror, Draft.js, Slate) may update the DOM a little later: poll up to ~400 ms.
+  const applied = () => {
+    const after = host!.textContent ?? '';
+    return after !== before && squash(after).includes(squash(out));
+  };
+  for (let waited = 0; waited <= 400 && !applied(); waited += 40) await new Promise((r) => setTimeout(r, 40));
+  const ok = applied();
   return { ok, method: ok ? 'rich' : 'failed' };
 }
 

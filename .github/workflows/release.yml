@@ -31,5 +31,5 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          notes=$(awk -v ver="${GITHUB_REF_NAME#v}" '$0 ~ "^## \\[" ver "\\]" {f=1; next} /^## \[/ {f=0} f' CHANGELOG.md)
+          notes=$(awk -v h="## [${GITHUB_REF_NAME#v}]" 'index($0, h) == 1 {f=1; next} /^## \[/ {f=0} f' CHANGELOG.md)
           gh release create "$GITHUB_REF_NAME" web-ext-artifacts/*.zip --title "FancyTextPro $GITHUB_REF_NAME" --notes "$notes"
