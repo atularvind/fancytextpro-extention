@@ -1,0 +1,35 @@
+name: Release
+
+# Push a tag like v2.0.0 (matching package.json "version") to build, test and
+# attach store-ready zips to a GitHub Release. Uploading to the Chrome Web
+# Store and addons.mozilla.org is still a manual step (see RELEASING.md).
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Check tag matches package.json version
+        run: |
+          v=$(node -p 'require("./package.json").version')
+          [ "v$v" = "$GITHUB_REF_NAME" ] || { echo "Tag $GITHUB_REF_NAME does not match package.json version $v"; exit 1; }
+      - run: npm run check
+      - run: npx playwright install --with-deps chromium && npm run test:e2e
+      - run: npm run build && npm run package
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          notes=$(awk -v h="## [${GITHUB_REF_NAME#v}]" 'index($0, h) == 1 {f=1; next} /^## \[/ {f=0} f' CHANGELOG.md)
+          gh release create "$GITHUB_REF_NAME" web-ext-artifacts/*.zip --title "FancyTextPro $GITHUB_REF_NAME" --notes "$notes"

@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title data-i18n="optionsTitle">FancyTextPro settings</title>
+    <link rel="stylesheet" href="../shared/tokens.css" />
+    <link rel="stylesheet" href="../shared/page.css" />
+  </head>
+  <body>
+    <header class="page-bar">
+      <div class="wrap">
+        <a class="brand" id="brand" target="_blank" rel="noopener"><img src="../icons/mark.svg" alt="" width="26" height="26" /><span>FancyTextPro</span></a>
+      </div>
+    </header>
+    <main class="wrap">
+      <h1 data-i18n="optionsTitle"></h1>
+
+      <section class="card" aria-labelledby="h-appearance">
+        <h2 id="h-appearance" data-i18n="optAppearance"></h2>
+        <label class="field">
+          <span data-i18n="optTheme"></span>
+          <select id="theme">
+            <option value="system" data-i18n="optThemeSystem"></option>
+            <option value="light" data-i18n="optThemeLight"></option>
+            <option value="dark" data-i18n="optThemeDark"></option>
+          </select>
+        </label>
+      </section>
+
+      <section class="card" aria-labelledby="h-menu">
+        <h2 id="h-menu" data-i18n="optMenu"></h2>
+        <fieldset>
+          <legend data-i18n="optMenuAction"></legend>
+          <label class="choice"><input type="radio" name="menuAction" value="replace" /> <span data-i18n="optMenuReplace"></span></label>
+          <label class="choice"><input type="radio" name="menuAction" value="copy" /> <span data-i18n="optMenuCopy"></span></label>
+        </fieldset>
+        <label class="choice"><input type="checkbox" id="menuShowRecent" /> <span data-i18n="optMenuRecent"></span></label>
+      </section>
+
+      <section class="card" aria-labelledby="h-keys">
+        <h2 id="h-keys" data-i18n="optShortcuts"></h2>
+        <dl id="shortcuts" class="shortcuts"></dl>
+        <p class="muted" id="shortcutHelp"></p>
+        <button type="button" class="btn" id="editShortcuts" hidden data-i18n="optEditShortcuts"></button>
+      </section>
+
+      <section class="card" aria-labelledby="h-data">
+        <h2 id="h-data" data-i18n="optData"></h2>
+        <p data-i18n="optPrivacy"></p>
+        <p><a id="privacyLink" target="_blank" rel="noopener" data-i18n="optPrivacyLink"></a></p>
+        <button type="button" class="btn danger" id="clear" data-i18n="optClear"></button>
+      </section>
+
+      <p class="muted center" id="version"></p>
+    </main>
+    <div id="status" class="status" role="status" aria-live="polite"></div>
+    <script src="options.js"></script>
+  </body>
+</html>

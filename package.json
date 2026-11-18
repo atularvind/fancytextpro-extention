@@ -1,0 +1,44 @@
+{
+  "name": "fancytextpro-extension",
+  "version": "2.0.0",
+  "description": "FancyTextPro browser extension: fancy text anywhere you type.",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "author": "Atul Arvind",
+  "homepage": "https://www.fancytextpro.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/atularvind/fancytextpro-extention.git"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "dev": "node scripts/build.mjs --dev --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "node scripts/build.mjs --e2e && playwright test",
+    "lint:firefox": "web-ext lint --source-dir dist/firefox --self-hosted=false",
+    "size": "node scripts/check-size.mjs",
+    "package": "node scripts/package.mjs",
+    "store:assets": "node scripts/build.mjs --e2e && node scripts/screenshots.mjs && node scripts/store-assets.mjs",
+    "check": "npm run typecheck && npm test && npm run build && npm run lint:firefox && npm run size",
+    "styles:capture": "node scripts/sync-styles/capture.mjs",
+    "styles:derive": "node scripts/sync-styles/derive.mjs",
+    "start:chrome": "web-ext run --source-dir dist/chrome --target chromium",
+    "start:firefox": "web-ext run --source-dir dist/firefox"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.14.0",
+    "@playwright/test": "1.65.1",
+    "@types/chrome": "0.1.43",
+    "esbuild": "0.28.2",
+    "jsdom": "27.4.0",
+    "typescript": "5.9.3",
+    "vitest": "5.1.1",
+    "web-ext": "10.8.0"
+  }
+}

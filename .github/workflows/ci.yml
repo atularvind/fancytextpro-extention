@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Typecheck
+        run: npm run typecheck
+      - name: Unit tests (engine, website parity, logic, injected functions)
+        run: npm test
+      - name: Build Chrome + Firefox
+        run: npm run build
+      - name: Firefox add-on lint
+        run: npm run lint:firefox
+      - name: Bundle size budget
+        run: npm run size
+      - name: Permission guard
+        run: |
+          node -e '
+            const m = require("./dist/chrome/manifest.json");
+            const want = ["activeTab","contextMenus","scripting","storage"];
+            const got = [...m.permissions].sort();
+            if (JSON.stringify(got) !== JSON.stringify(want) || m.host_permissions || m.content_scripts) {
+              console.error("Permissions changed! Update PRIVACY.md and docs before changing this check.", got, m.host_permissions, m.content_scripts);
+              process.exit(1);
+            }'
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+      - name: End-to-end + accessibility tests (Chromium)
+        run: npm run test:e2e
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-results
+          path: test-results/
+          retention-days: 7

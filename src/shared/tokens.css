@@ -1,0 +1,111 @@
+/*
+ * FancyTextPro design tokens, taken from fancytextpro.com (Tailwind blue
+ * palette) with accessibility fixes: every text/background pair is at least
+ * 4.5:1 (checked by the axe tests in tests/e2e/a11y.spec.ts).
+ */
+:root {
+  color-scheme: light;
+  --ftp-brand: #2563eb;
+  --ftp-brand-strong: #1d4ed8;
+  --ftp-on-brand: #ffffff;
+  --ftp-bg: #dbeafe;
+  --ftp-surface: #ffffff;
+  --ftp-surface-2: #f1f5f9;
+  --ftp-border: #cbd5e1;
+  --ftp-text: #0f172a;
+  --ftp-text-muted: #475569;
+  --ftp-accent-text: #1d4ed8;
+  --ftp-copy-btn: #475569;
+  --ftp-hover: #eff6ff;
+  --ftp-focus: #1d4ed8;
+  --ftp-star: #b45309;
+  --ftp-warn: #b45309;
+  --ftp-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  --ftp-radius: 6px;
+  --ftp-font: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+    --ftp-brand: #2563eb;
+    --ftp-brand-strong: #60a5fa;
+    --ftp-on-brand: #ffffff;
+    --ftp-bg: #0f172a;
+    --ftp-surface: #1e293b;
+    --ftp-surface-2: #273449;
+    --ftp-border: #334155;
+    --ftp-text: #e2e8f0;
+    --ftp-text-muted: #a8b5c8;
+    --ftp-accent-text: #93c5fd;
+    --ftp-copy-btn: #334155;
+    --ftp-hover: #273449;
+    --ftp-focus: #93c5fd;
+    --ftp-star: #fbbf24;
+    --ftp-warn: #fbbf24;
+    --ftp-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  }
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --ftp-brand: #2563eb;
+  --ftp-brand-strong: #60a5fa;
+  --ftp-on-brand: #ffffff;
+  --ftp-bg: #0f172a;
+  --ftp-surface: #1e293b;
+  --ftp-surface-2: #273449;
+  --ftp-border: #334155;
+  --ftp-text: #e2e8f0;
+  --ftp-text-muted: #a8b5c8;
+  --ftp-accent-text: #93c5fd;
+  --ftp-copy-btn: #334155;
+  --ftp-hover: #273449;
+  --ftp-focus: #93c5fd;
+  --ftp-star: #fbbf24;
+  --ftp-warn: #fbbf24;
+  --ftp-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font: 14px/1.45 var(--ftp-font);
+  color: var(--ftp-text);
+  background: var(--ftp-bg);
+}
+
+:focus-visible {
+  outline: 2px solid var(--ftp-focus);
+  outline-offset: 2px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+a {
+  color: var(--ftp-accent-text);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
