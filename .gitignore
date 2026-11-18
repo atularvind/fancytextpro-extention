@@ -1,0 +1,21 @@
+node_modules/
+dist/
+web-ext-artifacts/
+scripts/sync-styles/.cache/
+test-results/
+playwright-report/
+coverage/
+.DS_Store
+*.log
+.vitest/
+
+# Local-only planning docs (research, PRD, roadmap, todo)
+docs/research/
+
+# Editors / OS
+.vscode/
+.idea/
+*.swp
+Thumbs.db
+.env
+.env.*
