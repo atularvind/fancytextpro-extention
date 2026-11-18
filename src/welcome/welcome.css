@@ -1,0 +1,58 @@
+.lead {
+  font-size: 17px;
+  color: var(--ftp-text-muted);
+  margin: -6px 0 20px;
+}
+
+.try textarea {
+  width: 100%;
+  font: 17px/1.4 var(--ftp-font);
+  padding: 10px 12px;
+  border: 2px solid var(--ftp-brand-strong);
+  border-radius: var(--ftp-radius);
+  background: var(--ftp-surface);
+  color: var(--ftp-text);
+  resize: vertical;
+}
+
+.steps {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 16px;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  counter-reset: step;
+}
+
+.steps li {
+  display: grid;
+  align-content: start;
+  gap: 6px;
+  margin: 0;
+  counter-increment: step;
+}
+
+.steps li::before {
+  content: counter(step);
+  display: inline-grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--ftp-brand);
+  color: #fff;
+  font-weight: 700;
+}
+
+.cta {
+  margin: 24px 0 40px;
+}
+
+kbd {
+  font: 600 13px/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  padding: 3px 6px;
+  border: 1px solid var(--ftp-border);
+  border-radius: 5px;
+  background: var(--ftp-surface-2);
+}

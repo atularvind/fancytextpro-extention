@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title data-i18n="welcomeTitle">Welcome to FancyTextPro</title>
+    <link rel="stylesheet" href="../shared/tokens.css" />
+    <link rel="stylesheet" href="../shared/page.css" />
+    <link rel="stylesheet" href="welcome.css" />
+  </head>
+  <body>
+    <header class="page-bar">
+      <div class="wrap">
+        <a class="brand" id="brand" target="_blank" rel="noopener"><img src="../icons/mark.svg" alt="" width="26" height="26" /><span>FancyTextPro</span></a>
+      </div>
+    </header>
+    <main class="wrap">
+      <h1 data-i18n="welcomeTitle"></h1>
+      <p class="lead" data-i18n="welcomeLead"></p>
+
+      <section class="card try" aria-labelledby="h-try">
+        <h2 id="h-try" data-i18n="welcomeTryTitle"></h2>
+        <p class="muted" data-i18n="welcomeTryBody"></p>
+        <textarea id="demo" rows="2" spellcheck="false" aria-labelledby="h-try"></textarea>
+      </section>
+
+      <ol class="steps">
+        <li class="card"><strong data-i18n="welcomeStep1Title"></strong><span data-i18n="welcomeStep1Body"></span></li>
+        <li class="card"><strong data-i18n="welcomeStep2Title"></strong><span id="step2"></span></li>
+        <li class="card"><strong data-i18n="welcomeStep3Title"></strong><span data-i18n="welcomeStep3Body"></span></li>
+      </ol>
+
+      <section class="card">
+        <h2 data-i18n="welcomePrivacyTitle"></h2>
+        <p data-i18n="optPrivacy"></p>
+      </section>
+
+      <p class="center cta">
+        <a class="btn primary" id="siteLink" target="_blank" rel="noopener" data-i18n="welcomeSiteCta"></a>
+      </p>
+    </main>
+    <script src="welcome.js"></script>
+  </body>
+</html>

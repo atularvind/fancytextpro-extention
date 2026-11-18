@@ -1,0 +1,177 @@
+/* Shared layout for full-page extension screens (options, welcome). */
+body {
+  font-size: 15px;
+}
+
+.wrap {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.page-bar {
+  background: var(--ftp-brand);
+  color: var(--ftp-on-brand);
+  padding: 10px 0;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--ftp-on-brand);
+  font-weight: 700;
+  font-size: 18px;
+  text-decoration: none;
+  border-radius: var(--ftp-radius);
+}
+
+.brand:focus-visible {
+  outline-color: #fff;
+}
+
+h1 {
+  font-size: 26px;
+  margin: 28px 0 16px;
+  color: var(--ftp-accent-text);
+}
+
+h2 {
+  font-size: 17px;
+  margin: 0 0 12px;
+}
+
+.card {
+  background: var(--ftp-surface);
+  border-radius: var(--ftp-radius);
+  box-shadow: var(--ftp-shadow);
+  padding: 18px 20px;
+  margin-bottom: 16px;
+}
+
+.card p {
+  margin: 0 0 10px;
+}
+
+.field {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+select,
+.btn {
+  font: inherit;
+  padding: 7px 12px;
+  border: 1px solid var(--ftp-border);
+  border-radius: var(--ftp-radius);
+  background: var(--ftp-surface);
+  color: var(--ftp-text);
+}
+
+.btn {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn:hover {
+  background: var(--ftp-hover);
+}
+
+.btn.primary {
+  background: var(--ftp-brand);
+  border-color: var(--ftp-brand);
+  color: var(--ftp-on-brand);
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn.primary:hover {
+  background: #1d4ed8;
+}
+
+.btn.danger {
+  color: #b91c1c;
+}
+
+fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0 0 10px;
+}
+
+legend {
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.choice {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  margin: 6px 0;
+}
+
+.choice input {
+  margin-top: 4px;
+  accent-color: var(--ftp-brand);
+}
+
+.shortcuts {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px 16px;
+  margin: 0 0 10px;
+}
+
+.shortcuts dd {
+  margin: 0;
+}
+
+kbd {
+  font: 600 13px/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  padding: 4px 7px;
+  border: 1px solid var(--ftp-border);
+  border-bottom-width: 2px;
+  border-radius: 5px;
+  background: var(--ftp-surface-2);
+}
+
+.muted {
+  color: var(--ftp-text-muted);
+  font-size: 13px;
+}
+
+.center {
+  text-align: center;
+}
+
+.status {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  background: #1d4ed8;
+  color: #fff;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: var(--ftp-radius);
+  opacity: 0;
+  transition: opacity 0.15s;
+  pointer-events: none;
+}
+
+.status.show {
+  opacity: 1;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .btn.danger {
+    color: #fca5a5;
+  }
+}
+
+:root[data-theme='dark'] .btn.danger {
+  color: #fca5a5;
+}
